@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, FolderKanban, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import Logo from "@/assets/svg/logo";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -24,9 +25,10 @@ const Header = () => {
           className="group flex items-center gap-3"
           aria-label="ProjectHub home"
         >
-          <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:scale-105">
+          {/* <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:scale-105">
             <FolderKanban className="size-5" />
-          </div>
+          </div> */}
+          <Logo />
 
           <div className="flex flex-col">
             <span className="text-lg font-bold tracking-tight text-foreground">
