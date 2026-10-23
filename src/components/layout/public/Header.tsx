@@ -1,20 +1,51 @@
+/** biome-ignore-all lint/complexity/noUselessFragments: <explanation> */
 "use client";
 
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Moon, Sun } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Logo from "@/assets/svg/logo";
-import { useGetMe } from "@/hooks/auth.hook";
+import { useGetMe, useLogout } from "@/hooks/auth.hook";
+import { toast } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Header = () => {
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const queryClient = useQueryClient();
+
   const { data } = useGetMe();
-  console.log(data);
+  const { mutate: logout } = useLogout();
+
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        queryClient.setQueryData(["user"], null);
+        queryClient.invalidateQueries();
+
+        toast.add({
+          title: "Logout Successful",
+          description: "You have been logged out.",
+          type: "success",
+        });
+
+        router.push("/login");
+      },
+      onError: () => {
+        toast.add({
+          title: "Logout Failed",
+          description: "Something went wrong. Please try again.",
+          type: "error",
+        });
+      },
+    });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -73,20 +104,37 @@ const Header = () => {
           <div className="hidden h-7 w-px bg-border sm:block" />
 
           {/* Login */}
-          <Button
-            variant="outline"
-            className="rounded-xl px-3 font-medium sm:px-4"
-          >
-            <Link href="/login">Login</Link>
-          </Button>
+          {data?.data ? (
+            <>
+              <Button
+                onClick={handleLogout}
+                className="cursor-pointer"
+                variant="destructive"
+              >
+                <LogOut className="size-4" /> Log Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button
+                  variant="outline"
+                  className="rounded-xl cursor-pointer px-3 font-medium sm:px-4"
+                >
+                  Login
+                </Button>
+              </Link>
 
-          {/* Registration */}
-          <Button
-            variant="outline"
-            className="rounded-xl px-3 font-medium sm:px-4"
-          >
-            <Link href="/register">Register</Link>
-          </Button>
+              <Link href="/register">
+                <Button
+                  variant="outline"
+                  className="rounded-xl cursor-pointer px-3 font-medium sm:px-4"
+                >
+                  Register
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

@@ -12,3 +12,11 @@ export function userLogin(payload: LoginPayload) {
 export function getMe() {
   return apiClient("/auth/me");
 }
+
+export function userLogout() {
+  return apiClient("/auth/logout", { method: "POST" });
+}
+
+// export function userRefreshToken() {
+//   return apiClient("/auth/refresh-token");
+// }
