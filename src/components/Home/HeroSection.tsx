@@ -123,7 +123,6 @@ const HeroSection = () => {
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
             <Button
-              asChild
               size="lg"
               className="group h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/20"
             >
@@ -134,7 +133,6 @@ const HeroSection = () => {
             </Button>
 
             <Button
-              asChild
               variant="outline"
               size="lg"
               className="h-12 rounded-xl bg-background/70 px-6 text-base transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
