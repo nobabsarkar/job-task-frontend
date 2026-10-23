@@ -8,9 +8,16 @@ import { Button } from "../ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { RegistrationSchema } from "@/validation/auth.validation";
+import { useRegistration } from "@/hooks/auth.hook";
+import { toast } from "../ui/toast";
+import { useRouter } from "next/navigation";
+import { Spinner } from "../ui/spinner";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  const { mutate: registration, isPending } = useRegistration();
 
   const defaultValues = {
     name: "",
@@ -32,7 +39,26 @@ const RegisterForm = () => {
         password: value.password,
       };
 
-      console.log(registrationData);
+      registration(registrationData, {
+        onSuccess: () => {
+          toast.add({
+            title: "Registration successfully",
+            description: "Your account has been created",
+            type: "success",
+          });
+
+          form.reset();
+          router.push("/");
+        },
+        onError: (err) => {
+          toast.add({
+            title: "Authorization failure",
+            description:
+              err.message || "something went wrong, Please try again",
+            type: "error",
+          });
+        },
+      });
     },
   });
 
@@ -198,7 +224,14 @@ const RegisterForm = () => {
           </form.Field>
 
           <Button className="cursor-pointer outline" type="submit">
-            Register
+            {isPending ? (
+              <>
+                <Spinner />
+                Registering...
+              </>
+            ) : (
+              "Register"
+            )}
           </Button>
         </FieldGroup>
       </form>

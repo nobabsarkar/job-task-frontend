@@ -3,14 +3,18 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { ArrowRight, FolderKanban, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Logo from "@/assets/svg/logo";
+import { useGetMe } from "@/hooks/auth.hook";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const { data } = useGetMe();
+  console.log(data);
 
   useEffect(() => {
     setMounted(true);
