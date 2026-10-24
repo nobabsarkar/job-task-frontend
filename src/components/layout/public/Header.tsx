@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { LogOut, Moon, Sun } from "lucide-react";
+import { LayoutDashboard, LogOut, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Logo from "@/assets/svg/logo";
@@ -12,6 +12,13 @@ import { useGetMe, useLogout } from "@/hooks/auth.hook";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { UserRole } from "@/types/user.type";
+
+const dashboardRoute: Record<UserRole, string> = {
+  SUPER_ADMIN: "/admin",
+  MENTOR: "/mentor",
+  STUDENT: "/student",
+};
 
 const Header = () => {
   const router = useRouter();
@@ -22,6 +29,9 @@ const Header = () => {
 
   const { data } = useGetMe();
   const { mutate: logout } = useLogout();
+
+  const user = data?.data;
+  const role = user?.role as UserRole | undefined;
 
   const handleLogout = () => {
     logout(undefined, {
@@ -46,6 +56,12 @@ const Header = () => {
       },
     });
   };
+
+  const dashboardHref = role ? dashboardRoute[role] : "/login";
+
+  const authenticatedLinks = [{ label: "Dashboard", href: dashboardHref }];
+
+  const navLinks = user ? authenticatedLinks : "";
 
   useEffect(() => {
     setMounted(true);
@@ -102,6 +118,15 @@ const Header = () => {
           </Button>
 
           <div className="hidden h-7 w-px bg-border sm:block" />
+
+          {user && role && (
+            <Link href={dashboardRoute[role]} className="cursor-pointer">
+              <Button className="cursor-pointer">
+                <LayoutDashboard className="size-4" />
+                Dashboard
+              </Button>
+            </Link>
+          )}
 
           {/* Login */}
           {data?.data ? (

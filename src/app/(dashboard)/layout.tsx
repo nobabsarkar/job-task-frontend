@@ -1,3 +1,4 @@
+import DashboardShell from "@/components/(dashboard)/dashboard-shell";
 import AuthGuard from "@/components/auth/auth-guard";
 import { ReactNode } from "react";
 
