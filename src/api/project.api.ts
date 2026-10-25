@@ -1,5 +1,5 @@
 import apiClient from "@/lib/apiClient";
-import { ICreatePorject } from "@/types/project.type";
+import { ICreatePorject, IUpdateProjectStatus } from "@/types/project.type";
 
 export function userCreateProject(payload: ICreatePorject) {
   return apiClient("/projects/create-project", {
@@ -14,4 +14,14 @@ export function userGetMyProject() {
 
 export function adminGetAllProject() {
   return apiClient("/projects/all-projects");
+}
+
+export function updateStudentProjectStatus(
+  id: string,
+  payload: IUpdateProjectStatus,
+) {
+  return apiClient(`/projects/status/${id}`, {
+    method: "PATCH",
+    body: payload,
+  });
 }

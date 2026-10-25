@@ -93,7 +93,7 @@ const StudentOwnProject = () => {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  studentDatas.map((project: any) => (
+                  studentDatas?.map((project: any) => (
                     <TableRow
                       key={project.id}
                       className="transition-colors hover:bg-muted/20"

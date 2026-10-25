@@ -4,3 +4,7 @@ export interface ICreatePorject {
   liveLink: string;
   description: string;
 }
+
+export interface IUpdateProjectStatus {
+  status: "APPROVED" | "REJECTED";
+}
