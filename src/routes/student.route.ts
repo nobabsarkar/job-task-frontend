@@ -9,8 +9,8 @@ export const studentRoutes = [
         url: `${prefix}`,
       },
       {
-        title: "Student",
-        url: `${prefix}/create-complain`,
+        title: "Create Project",
+        url: `${prefix}/create-project`,
       },
     ],
   },

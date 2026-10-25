@@ -9,8 +9,8 @@ export const adminRoutes = [
         url: `${prefix}`,
       },
       {
-        title: "About",
-        url: `${prefix}`,
+        title: "Manage Users",
+        url: `${prefix}/manage-users`,
       },
     ],
   },

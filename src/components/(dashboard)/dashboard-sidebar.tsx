@@ -97,7 +97,7 @@ export function DashboardSidebar({ role }: { role: UserRole }) {
     <Sidebar
       collapsible="icon"
       variant="sidebar"
-      className="border-r-5 bg-sidebar text-sidebar-foreground shadow-amber-100"
+      className="border-r-5  bg-sidebar text-sidebar-foreground shadow-amber-100"
     >
       {/* Navigation */}
       {/* <SidebarContent className="gap-2 bg-sidebar px-3 py-2 text-sidebar-foreground bg-[oklch(33.754%_0.0035_286.055)]"> */}

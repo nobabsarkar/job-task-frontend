@@ -18,12 +18,14 @@ export default function DashboardShell({
   role: UserRole;
 }) {
   return (
-    <SidebarProvider className="mx-auto max-w-7xl transform-gpu">
-      <DashboardSidebar role={role} />
+    <SidebarProvider className="mx-auto max-w-7xl transform-gpu ">
+      <div>
+        <DashboardSidebar role={role} />
+      </div>
 
       <SidebarInset>
-        <div className="">
-          <SidebarTrigger className="-ml-1 lg:hidden cursor-pointer" />
+        <div>
+          <SidebarTrigger className="-ml-1 cursor-pointer" />
         </div>
         {children}
       </SidebarInset>
