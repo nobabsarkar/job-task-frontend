@@ -63,7 +63,7 @@ const RegisterForm = () => {
   });
 
   return (
-    <div className="flex flex-col gap-6 rounded-xl border bg-card p-6 shadow-lg">
+    <div className="flex flex-col gap-6 rounded-xl  bg-card p-6 shadow-lg">
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold tracking-tight">Create account</h1>
       </div>

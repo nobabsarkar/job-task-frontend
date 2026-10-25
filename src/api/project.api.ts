@@ -11,3 +11,7 @@ export function userCreateProject(payload: ICreatePorject) {
 export function userGetMyProject() {
   return apiClient("/projects/own-project");
 }
+
+export function adminGetAllProject() {
+  return apiClient("/projects/all-projects");
+}

@@ -12,6 +12,10 @@ export const adminRoutes = [
         title: "Manage Users",
         url: `${prefix}/manage-users`,
       },
+      {
+        title: "Student Project",
+        url: `${prefix}/student-project`,
+      },
     ],
   },
 ];

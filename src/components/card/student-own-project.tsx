@@ -1,96 +1,3 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import { Badge } from "@/components/ui/badge";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableHeader,
-//   TableRow,
-// } from "@/components/ui/table";
-
-// import { Users, Mail } from "lucide-react";
-// import { useGetMyProject } from "@/hooks/project.hook";
-
-// const StudentOwnProject = () => {
-//   const { data } = useGetMyProject();
-
-//   const studentDatas = data?.data;
-
-//   return (
-//     <Card className="w-full overflow-hidden rounded-2xl border-border/60 bg-card shadow-sm m-10">
-//       <CardHeader className="border-b border-border/60 bg-muted/20 p-5 sm:p-6">
-//         <div className="flex items-center gap-3">
-//           <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-//             <Users className="size-6" />
-//           </div>
-//           <div>
-//             <CardTitle className="text-xl font-bold">All Projects</CardTitle>
-//             <CardDescription className="mt-1">
-//               View Student All Project Information.
-//             </CardDescription>
-//           </div>
-//         </div>
-//       </CardHeader>
-
-//       <CardContent className="p-0">
-//         <div className="w-full overflow-x-auto">
-//           <Table>
-//             <TableHeader>
-//               <TableRow className="bg-muted/30 hover:bg-muted/30 ">
-//                 <TableHead className="px-5">Project Name</TableHead>
-//                 <TableHead>Repo Url</TableHead>
-//                 <TableHead>Live Link</TableHead>
-//                 <TableHead>Description</TableHead>
-//                 <TableHead>Status</TableHead>
-//               </TableRow>
-//             </TableHeader>
-
-//             <TableBody>
-//               {studentDatas?.map((data: any) => (
-//                 <TableRow key={data.id} className="hover:bg-muted/30 border-0">
-//                   <TableCell>
-//                     <span className="flex items-center gap-2 text-sm text-muted-foreground">
-//                       {data.projectName}
-//                     </span>
-//                   </TableCell>
-//                   <TableCell>
-//                     <span className="flex items-center gap-2 text-sm text-muted-foreground">
-//                       {data.repoUrl}
-//                     </span>
-//                   </TableCell>
-//                   <TableCell>
-//                     <span className="flex items-center gap-2 text-sm text-muted-foreground">
-//                       {data.liveLink}
-//                     </span>
-//                   </TableCell>
-//                   <TableCell>
-//                     <span className="flex items-center gap-2 text-sm text-muted-foreground">
-//                       {data.description}
-//                     </span>
-//                   </TableCell>
-//                   <TableCell>{data.status}</TableCell>
-//                 </TableRow>
-//               ))}
-//             </TableBody>
-//           </Table>
-//         </div>
-//       </CardContent>
-//     </Card>
-//   );
-// };
-
-// export default StudentOwnProject;
-
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -131,7 +38,7 @@ const StudentOwnProject = () => {
 
   return (
     <div className="w-full min-w-0 p-3 sm:p-5 lg:p-6">
-      <Card className="w-full overflow-hidden rounded-xl border-border/60 bg-card shadow-sm">
+      <Card className="w-full  overflow-hidden rounded-xl border-border/60 bg-card shadow-sm">
         <CardHeader className="border-b border-border/60 bg-muted/20 p-4 sm:p-6">
           <div className="flex items-center gap-3">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -150,8 +57,10 @@ const StudentOwnProject = () => {
         </CardHeader>
 
         <CardContent className="p-0">
-          <div className="w-full overflow-x-auto">
-            <Table>
+          {/* <div className="w-full overflow-x-auto">
+            <Table className=""> */}
+          <div className="max-w-full overflow-x-auto">
+            <Table className="min-w-[1000px]">
               <TableHeader>
                 <TableRow className="bg-muted/30 hover:bg-muted/30">
                   <TableHead className="whitespace-nowrap px-4 sm:px-6">
@@ -210,7 +119,7 @@ const StudentOwnProject = () => {
                       <TableCell className="pr-4">
                         <Badge
                           variant="outline"
-                          className={`whitespace-nowrap rounded-full px-3 py-1  ${getStatusBadge(project.status)}`}
+                          className={`whitespace-nowrap  rounded-full px-3 py-1  ${getStatusBadge(project.status)}`}
                         >
                           {project.status}
                         </Badge>

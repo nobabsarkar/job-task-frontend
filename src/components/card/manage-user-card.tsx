@@ -47,12 +47,6 @@ export default function AllUsersTable() {
     );
   };
 
-  // const updateLocalRole = (id: string, role: UserRole) => {
-  //   setUsers((previous) =>
-  //     previous?.map((user) => (user?.id === id ? { ...user, role } : user)),
-  //   );
-  // };
-
   useEffect(() => {
     if (data?.data) {
       setUsers(data.data);
@@ -159,28 +153,6 @@ export default function AllUsersTable() {
                   </TableCell>
 
                   <TableCell className="pr-5">
-                    {/* <Select
-                      value={user.role}
-                      disabled={user.role === "SUPER_ADMIN"}
-                      onValueChange={(value) =>
-                        updateLocalRole(user.id, value as UserRole)
-                      }
-                    >
-                      <SelectTrigger
-                        className={`w-[170px] bg-background ${
-                          user.role === "SUPER_ADMIN"
-                            ? "cursor-not-allowed opacity-60"
-                            : "cursor-pointer"
-                        }`}
-                      >
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-
-                      <SelectContent>
-                        <SelectItem value="STUDENT">Student</SelectItem>
-                        <SelectItem value="MENTOR">Mentor</SelectItem>
-                      </SelectContent>
-                    </Select> */}
                     <Select
                       value={user.role}
                       disabled={user.role === "SUPER_ADMIN"}

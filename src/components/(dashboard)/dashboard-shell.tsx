@@ -25,7 +25,7 @@ export default function DashboardShell({
 
       <SidebarInset>
         <div>
-          <SidebarTrigger className="-ml-1 cursor-pointer" />
+          <SidebarTrigger className="-ml-1 size-10 lg:hidden cursor-pointer" />
         </div>
         {children}
       </SidebarInset>
