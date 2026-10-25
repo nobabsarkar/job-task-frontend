@@ -1,5 +1,5 @@
-import { userCreateProject } from "@/api/project.api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { userCreateProject, userGetMyProject } from "@/api/project.api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useCreateProject() {
   const queryClient = useQueryClient();
@@ -12,5 +12,13 @@ export function useCreateProject() {
         queryKey: ["project"],
       });
     },
+  });
+}
+
+export function useGetMyProject() {
+  return useQuery({
+    queryKey: ["project"],
+    queryFn: userGetMyProject,
+    retry: false,
   });
 }

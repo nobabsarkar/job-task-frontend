@@ -7,3 +7,7 @@ export function userCreateProject(payload: ICreatePorject) {
     body: payload,
   });
 }
+
+export function userGetMyProject() {
+  return apiClient("/projects/own-project");
+}

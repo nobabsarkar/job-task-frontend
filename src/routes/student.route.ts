@@ -12,6 +12,10 @@ export const studentRoutes = [
         title: "Create Project",
         url: `${prefix}/create-project`,
       },
+      {
+        title: "My Projects",
+        url: `${prefix}/my-projects`,
+      },
     ],
   },
 ];

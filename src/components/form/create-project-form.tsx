@@ -26,6 +26,12 @@ const CreateProjectForm = () => {
   const { mutate: createProject, isPending } = useCreateProject();
 
   const form = useForm({
+    // defaultValues: {
+    //   projectName: "",
+    //   repoUrl: "",
+    //   liveLink: "",
+    //   description: "",
+    // },
     defaultValues: {
       projectName: "Nobab",
       repoUrl: "https://github.com/nobabsarkar",
@@ -83,15 +89,6 @@ const CreateProjectForm = () => {
             type: "error",
           });
         },
-
-        // onError: (err) => {
-        //   toast.add({
-        //     title: "Failure Create Project",
-        //     description:
-        //       err?.message || "Something went wrong. Please try again",
-        //     type: "error",
-        //   });
-        // },
       });
     },
   });
