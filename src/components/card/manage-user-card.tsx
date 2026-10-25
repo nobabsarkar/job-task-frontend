@@ -25,18 +25,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Users, Mail } from "lucide-react";
-import { useAdminGetAllUser } from "@/hooks/user.hook";
+import { useAdminGetAllUser, useAdminUpdateUserRole } from "@/hooks/user.hook";
 import { User, UserRole } from "@/types/user.type";
 
 export default function AllUsersTable() {
   const { data } = useAdminGetAllUser();
   const [users, setUsers] = useState<User[]>([]);
 
-  const updateLocalRole = (userId: string, role: UserRole) => {
-    setUsers((previous) =>
-      previous?.map((user) => (user?.id === userId ? { ...user, role } : user)),
+  const { mutate: updateUserRole } = useAdminUpdateUserRole();
+
+  const handleRoleChange = (id: string, role: UserRole) => {
+    updateUserRole(
+      { id, role },
+      {
+        onSuccess: () => {
+          setUsers((previous) =>
+            previous.map((user) => (user.id === id ? { ...user, role } : user)),
+          );
+        },
+      },
     );
   };
+
+  // const updateLocalRole = (id: string, role: UserRole) => {
+  //   setUsers((previous) =>
+  //     previous?.map((user) => (user?.id === id ? { ...user, role } : user)),
+  //   );
+  // };
 
   useEffect(() => {
     if (data?.data) {
@@ -144,11 +159,33 @@ export default function AllUsersTable() {
                   </TableCell>
 
                   <TableCell className="pr-5">
-                    <Select
+                    {/* <Select
                       value={user.role}
                       disabled={user.role === "SUPER_ADMIN"}
                       onValueChange={(value) =>
                         updateLocalRole(user.id, value as UserRole)
+                      }
+                    >
+                      <SelectTrigger
+                        className={`w-[170px] bg-background ${
+                          user.role === "SUPER_ADMIN"
+                            ? "cursor-not-allowed opacity-60"
+                            : "cursor-pointer"
+                        }`}
+                      >
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value="STUDENT">Student</SelectItem>
+                        <SelectItem value="MENTOR">Mentor</SelectItem>
+                      </SelectContent>
+                    </Select> */}
+                    <Select
+                      value={user.role}
+                      disabled={user.role === "SUPER_ADMIN"}
+                      onValueChange={(value) =>
+                        handleRoleChange(user.id, value as UserRole)
                       }
                     >
                       <SelectTrigger

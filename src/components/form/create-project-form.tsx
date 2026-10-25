@@ -8,37 +8,91 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import {
-  DollarSignIcon,
-  LocationEdit,
+  Link,
   MapPin,
   TextIcon,
+  TextWrapIcon,
   TicketsPlaneIcon,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { Textarea } from "@/components/ui/textarea";
+import { CreateProjectValidationSchema } from "@/validation/project.validation";
+import { useCreateProject } from "@/hooks/project.hook";
+import { toast } from "../ui/toast";
 import { Spinner } from "../ui/spinner";
 
 const CreateProjectForm = () => {
+  const { mutate: createProject, isPending } = useCreateProject();
+
   const form = useForm({
     defaultValues: {
-      title: "",
-      description: "",
-      location: "",
-      price: "",
+      projectName: "Nobab",
+      repoUrl: "https://github.com/nobabsarkar",
+      liveLink: "https://my-portfolio-five-zeta-19.vercel.app/",
+      description: "this is description",
     },
 
-    // validators: {
-    //   onSubmit: complainSchema,
-    // },
+    validators: {
+      onSubmit: CreateProjectValidationSchema,
+    },
 
     onSubmit: async ({ value }) => {
-      const complainData = {
-        title: value.title,
+      const projectData = {
+        projectName: value.projectName,
+        repoUrl: value.repoUrl,
+        liveLink: value.liveLink,
         description: value.description,
-        location: value.location,
-        price: Number(value.price),
       };
+
+      createProject(projectData, {
+        onSuccess: () => {
+          toast.add({
+            title: "Project Created Successfully",
+            description: "Well Done",
+            type: "success",
+          });
+        },
+
+        onError: (err) => {
+          const error = err as {
+            message?: string;
+            data?: {
+              message?: string;
+              error?: string;
+            };
+            response?: {
+              _data?: {
+                message?: string;
+                error?: string;
+              };
+            };
+          };
+
+          const errorMessage =
+            error.data?.message ||
+            error.data?.error ||
+            error.response?._data?.message ||
+            error.response?._data?.error ||
+            error.message ||
+            "Something went wrong. Please try again";
+
+          toast.add({
+            title: "Failed to Create Project",
+            description: errorMessage,
+            type: "error",
+          });
+        },
+
+        // onError: (err) => {
+        //   toast.add({
+        //     title: "Failure Create Project",
+        //     description:
+        //       err?.message || "Something went wrong. Please try again",
+        //     type: "error",
+        //   });
+        // },
+      });
     },
   });
 
@@ -79,15 +133,19 @@ const CreateProjectForm = () => {
               <FieldGroup>
                 <div className="grid gap-6 sm:grid-cols-2">
                   {/* Title */}
-                  <form.Field name="title">
+                  <form.Field name="projectName">
                     {(field) => {
+                      // const isInvalid =
+                      //   field.state.meta.isTouched && !field.state.meta.isValid;
                       const isInvalid =
-                        field.state.meta.isTouched && !field.state.meta.isValid;
+                        !field.state.meta.isValid &&
+                        (field.state.meta.isTouched ||
+                          form.state.submissionAttempts > 0);
 
                       return (
                         <Field data-invalid={isInvalid}>
                           <FieldLabel htmlFor={field.name}>
-                            Complain Title
+                            Create Project
                           </FieldLabel>
 
                           <div className="relative">
@@ -97,7 +155,7 @@ const CreateProjectForm = () => {
                               id={field.name}
                               name={field.name}
                               type="text"
-                              placeholder="Title"
+                              placeholder="Project Name"
                               value={field.state.value}
                               onBlur={field.handleBlur}
                               onChange={(e) =>
@@ -115,8 +173,80 @@ const CreateProjectForm = () => {
                       );
                     }}
                   </form.Field>
-
                   {/* Description */}
+                  <form.Field name="repoUrl">
+                    {(field) => {
+                      const isInvalid =
+                        field.state.meta.isTouched && !field.state.meta.isValid;
+
+                      return (
+                        <Field data-invalid={isInvalid}>
+                          <FieldLabel htmlFor={field.name}>Repo Url</FieldLabel>
+
+                          <div className="relative">
+                            <TextIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+
+                            <Input
+                              id={field.name}
+                              name={field.name}
+                              type="text"
+                              placeholder="RepoUrl"
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) =>
+                                field.handleChange(e.target.value)
+                              }
+                              aria-invalid={isInvalid}
+                              className="h-10 pl-9"
+                            />
+                          </div>
+
+                          {isInvalid && (
+                            <FieldError errors={field.state.meta.errors} />
+                          )}
+                        </Field>
+                      );
+                    }}
+                  </form.Field>
+                  {/* Location */}
+                  <form.Field name="liveLink">
+                    {(field) => {
+                      const isInvalid =
+                        field.state.meta.isTouched && !field.state.meta.isValid;
+
+                      return (
+                        <Field data-invalid={isInvalid}>
+                          <FieldLabel htmlFor={field.name}>
+                            Live Link
+                          </FieldLabel>
+
+                          <div className="relative">
+                            {/* <LocationEdit className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /> */}
+                            <Link className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              id={field.name}
+                              name={field.name}
+                              type="text"
+                              placeholder="Live Link"
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) =>
+                                field.handleChange(e.target.value)
+                              }
+                              aria-invalid={isInvalid}
+                              className="h-10 pl-9"
+                            />
+                          </div>
+
+                          {isInvalid && (
+                            <FieldError errors={field.state.meta.errors} />
+                          )}
+                        </Field>
+                      );
+                    }}
+                  </form.Field>
+                  {/* Descriptiion */}
+
                   <form.Field name="description">
                     {(field) => {
                       const isInvalid =
@@ -129,93 +259,19 @@ const CreateProjectForm = () => {
                           </FieldLabel>
 
                           <div className="relative">
-                            <TextIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                            <TextWrapIcon className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground" />
 
-                            <Input
+                            <Textarea
                               id={field.name}
                               name={field.name}
-                              type="text"
-                              placeholder="Description"
+                              placeholder="Description..."
                               value={field.state.value}
                               onBlur={field.handleBlur}
-                              onChange={(e) =>
+                              onChange={(e: any) =>
                                 field.handleChange(e.target.value)
                               }
                               aria-invalid={isInvalid}
-                              className="h-10 pl-9"
-                            />
-                          </div>
-
-                          {isInvalid && (
-                            <FieldError errors={field.state.meta.errors} />
-                          )}
-                        </Field>
-                      );
-                    }}
-                  </form.Field>
-
-                  {/* Location */}
-                  <form.Field name="location">
-                    {(field) => {
-                      const isInvalid =
-                        field.state.meta.isTouched && !field.state.meta.isValid;
-
-                      return (
-                        <Field data-invalid={isInvalid}>
-                          <FieldLabel htmlFor={field.name}>Location</FieldLabel>
-
-                          <div className="relative">
-                            <LocationEdit className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-
-                            <Input
-                              id={field.name}
-                              name={field.name}
-                              type="text"
-                              placeholder="Location"
-                              value={field.state.value}
-                              onBlur={field.handleBlur}
-                              onChange={(e) =>
-                                field.handleChange(e.target.value)
-                              }
-                              aria-invalid={isInvalid}
-                              className="h-10 pl-9"
-                            />
-                          </div>
-
-                          {isInvalid && (
-                            <FieldError errors={field.state.meta.errors} />
-                          )}
-                        </Field>
-                      );
-                    }}
-                  </form.Field>
-
-                  {/* Price */}
-                  <form.Field name="price">
-                    {(field) => {
-                      const isInvalid =
-                        field.state.meta.isTouched && !field.state.meta.isValid;
-
-                      return (
-                        <Field data-invalid={isInvalid}>
-                          <FieldLabel htmlFor={field.name}>Price</FieldLabel>
-
-                          <div className="relative">
-                            <DollarSignIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-
-                            <Input
-                              id={field.name}
-                              name={field.name}
-                              type="number"
-                              min="0"
-                              placeholder="Price"
-                              value={field.state.value}
-                              onBlur={field.handleBlur}
-                              onChange={(e) =>
-                                field.handleChange(e.target.value)
-                              }
-                              aria-invalid={isInvalid}
-                              className="h-10 pl-9"
+                              className="min-h-28 resize-y pl-9 pt-2.5"
                             />
                           </div>
 
@@ -240,7 +296,13 @@ const CreateProjectForm = () => {
                 </Button>
 
                 <Button type="submit" size="lg" className="cursor-pointer">
-                  Submit Project
+                  {isPending ? (
+                    <>
+                      <Spinner /> Creating Project...
+                    </>
+                  ) : (
+                    " Create Project"
+                  )}
                 </Button>
               </div>
             </form>
