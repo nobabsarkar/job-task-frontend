@@ -4,6 +4,7 @@ import {
   userCreateProject,
   userGetMyProject,
 } from "@/api/project.api";
+import { ProjectQuery } from "@/components/card/admin-get-all-project";
 import { IUpdateProjectStatus } from "@/types/project.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -29,10 +30,10 @@ export function useGetMyProject() {
   });
 }
 
-export function useAdminGetAllProject() {
+export function useAdminGetAllProject(params: ProjectQuery) {
   return useQuery({
-    queryKey: ["project"],
-    queryFn: adminGetAllProject,
+    queryKey: ["project", params],
+    queryFn: () => adminGetAllProject(params),
     retry: false,
   });
 }
