@@ -24,7 +24,7 @@ const demoAccounts = {
     password: "123456",
   },
   mentor: {
-    email: "hello@gmail.com",
+    email: "shanto@gmail.com",
     password: "123456",
   },
 };

@@ -58,10 +58,35 @@ export function useUpdateStudentProjectStatus() {
       id: string;
       payload: IUpdateProjectStatus;
     }) => updateStudentProjectStatus(id, payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["project"],
-      });
+
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["project"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["statistics"],
+        }),
+      ]);
     },
   });
 }
+
+// export function useUpdateStudentProjectStatus() {
+//   const queryClient = useQueryClient();
+
+//   return useMutation({
+//     mutationFn: ({
+//       id,
+//       payload,
+//     }: {
+//       id: string;
+//       payload: IUpdateProjectStatus;
+//     }) => updateStudentProjectStatus(id, payload),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({
+//         queryKey: ["project"],
+//       });
+//     },
+//   });
+// }

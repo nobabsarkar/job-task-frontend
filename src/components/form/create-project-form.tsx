@@ -17,10 +17,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { CreateProjectValidationSchema } from "@/validation/project.validation";
 import { useCreateProject } from "@/hooks/project.hook";
 import { toast } from "../ui/toast";
 import { Spinner } from "../ui/spinner";
+import { CreateProjectValidationSchema } from "@/validation/project.validation";
 
 const CreateProjectForm = () => {
   const { mutate: createProject, isPending } = useCreateProject();
@@ -34,7 +34,7 @@ const CreateProjectForm = () => {
     // },
     defaultValues: {
       projectName: "Nobab",
-      repoUrl: "https://github.com/nobabsarkar",
+      repoUrl: "https://github.com/nobabsarkar/job-task-frontend",
       liveLink: "https://my-portfolio-five-zeta-19.vercel.app/",
       description: "this is description",
     },
