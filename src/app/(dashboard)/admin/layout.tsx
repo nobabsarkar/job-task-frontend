@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <RoleGuard roles={["SUPER_ADMIN"]}>
+    <RoleGuard roles={["SUPER_ADMIN", "MENTOR"]}>
       <div>
         <Header />
         <DashboardShell role="SUPER_ADMIN">{children}</DashboardShell>

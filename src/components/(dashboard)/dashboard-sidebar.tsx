@@ -14,7 +14,6 @@ import {
 
 import { UserRole } from "@/types/user.type";
 import { adminRoutes } from "@/routes/admin.routes";
-import { mentorRoutes } from "@/routes/mentor.routes";
 import { studentRoutes } from "@/routes/student.route";
 import { sidebarItems } from "@/types/sidebar-type";
 
@@ -42,7 +41,7 @@ import { usePathname } from "next/navigation";
 
 const sidebarRoutes: Partial<Record<UserRole, sidebarItems>> = {
   SUPER_ADMIN: adminRoutes,
-  MENTOR: mentorRoutes,
+  MENTOR: adminRoutes,
   STUDENT: studentRoutes,
 };
 
