@@ -25,6 +25,10 @@ export function adminGetAllProject(params: ProjectQuery) {
   return apiClient(`/projects/all-projects?${query.toString()}`);
 }
 
+export function adminGetProjectStatistics() {
+  return apiClient("/projects/statistics");
+}
+
 export function updateStudentProjectStatus(
   id: string,
   payload: IUpdateProjectStatus,

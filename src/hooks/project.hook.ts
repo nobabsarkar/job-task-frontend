@@ -1,5 +1,6 @@
 import {
   adminGetAllProject,
+  adminGetProjectStatistics,
   updateStudentProjectStatus,
   userCreateProject,
   userGetMyProject,
@@ -34,6 +35,14 @@ export function useAdminGetAllProject(params: ProjectQuery) {
   return useQuery({
     queryKey: ["project", params],
     queryFn: () => adminGetAllProject(params),
+    retry: false,
+  });
+}
+
+export function useProjectStatistics() {
+  return useQuery({
+    queryKey: ["statistics"],
+    queryFn: adminGetProjectStatistics,
     retry: false,
   });
 }
