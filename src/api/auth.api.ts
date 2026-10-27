@@ -16,9 +16,3 @@ export function getMe() {
 export function userLogout() {
   return apiClient("/auth/logout", { method: "POST" });
 }
-
-export function userRefreshToken() {
-  return apiClient("/auth/refresh-token", {
-    method: "POST",
-  });
-}

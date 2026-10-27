@@ -20,27 +20,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCreateProject } from "@/hooks/project.hook";
 import { toast } from "../ui/toast";
 import { Spinner } from "../ui/spinner";
-import { CreateProjectValidationSchema } from "@/validation/project.validation";
+import { projectValidation } from "@/validation/project.validation";
 
 const CreateProjectForm = () => {
   const { mutate: createProject, isPending } = useCreateProject();
 
   const form = useForm({
-    // defaultValues: {
-    //   projectName: "",
-    //   repoUrl: "",
-    //   liveLink: "",
-    //   description: "",
-    // },
     defaultValues: {
-      projectName: "Nobab",
-      repoUrl: "https://github.com/nobabsarkar/job-task-frontend",
-      liveLink: "https://my-portfolio-five-zeta-19.vercel.app/",
-      description: "this is description",
+      projectName: "",
+      repoUrl: "",
+      liveLink: "",
+      description: "",
     },
 
     validators: {
-      onSubmit: CreateProjectValidationSchema,
+      onSubmit: projectValidation,
     },
 
     onSubmit: async ({ value }) => {
